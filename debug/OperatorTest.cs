@@ -1,14 +1,26 @@
-﻿using Interpreter.lexer.tokens;
+﻿using Interpreter.lexer;
+using Interpreter.lexer.tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Interpreter.lexer
+namespace Interpreter
 {
-    static class Lexer
+    class OperatorTest
     {
+        static void Main(string[] args)
+        {
+            while (true)
+            {
+                string input = Console.ReadLine();
+                if (input == "exit")
+                    break;
+                Console.WriteLine("Answer: " + LexerTest(input));
+            }
+        }
+
         public static object LexerTest(string lexeme)
         {
             LinkedList<AbstractToken> tokens = new LinkedList<AbstractToken>();
@@ -70,7 +82,7 @@ namespace Interpreter.lexer
                         if (nextToken is ValueToken)
                         {
                             valueStack.Push(nextToken as ValueToken);
-                        } 
+                        }
                         else
                         {
                             break;

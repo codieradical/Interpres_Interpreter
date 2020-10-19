@@ -45,7 +45,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="lexer\Lexer.cs" />
     <Compile Include="lexer\tokens\AbstractToken.cs" />
     <Compile Include="lexer\tokens\AbstractOperator.cs" />
     <Compile Include="lexer\tokens\bitwise\ComplementOperator.cs" />
