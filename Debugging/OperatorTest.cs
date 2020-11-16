@@ -1,16 +1,16 @@
-﻿using Interpreter.lexer;
-using Interpreter.lexer.tokens;
+﻿using Interpres.Lexer;
+using Interpres.Lexer.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Interpreter
+namespace Interpres.Debugging
 {
     class OperatorTest
     {
-        static void Main(string[] args)
+        public static void Debug(string[] args)
         {
             while (true)
             {
@@ -32,7 +32,7 @@ namespace Interpreter
                     continue;
                 }
 
-                AbstractOperator abstractOperator = OperatorService.GetOperator(lexeme.Substring(i));
+                AbstractOperator abstractOperator = OperatorService.GetOperator(i, lexeme.Substring(i));
                 if (abstractOperator != null)
                 {
                     tokens.AddLast(abstractOperator);

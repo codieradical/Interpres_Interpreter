@@ -6,11 +6,16 @@ using System.Threading.Tasks;
 
 namespace Interpres.Lexer.Tokens
 {
-    class RightParenthesisToken : AbstractToken
+    class EOFToken : AbstractToken
     {
+        public EOFToken(int position)
+        {
+            Position = position;
+        }
+
         public override string ToString()
         {
-            return ")";
+            return "";
         }
     }
 }

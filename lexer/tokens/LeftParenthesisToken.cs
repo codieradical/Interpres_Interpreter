@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Interpreter.lexer
+namespace Interpres.Lexer.Tokens
 {
     class LeftParenthesisToken : AbstractToken
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Interpreter.lexer
+namespace Interpres.Lexer.Tokens
 {
     class ValueToken : AbstractToken
     {
@@ -25,6 +25,13 @@ namespace Interpreter.lexer
         public ValueToken(object value)
         {
             Value = value;
+        }
+
+        public static ValueToken FromString(int position, string valueString)
+        {
+            ValueToken token = FromString(valueString);
+            token.Position = position;
+            return token;
         }
 
         public static ValueToken FromString(string valueString)
@@ -56,6 +63,9 @@ namespace Interpreter.lexer
 
             if (long.TryParse(valueString, out long longValue))
                 return new ValueToken(longValue);
+
+            //if (!valueString.Contains(" "))
+            //    return new ValueToken(valueString);
 
             throw new Exception("Invalid value " + valueString);
         }

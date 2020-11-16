@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Interpreter.lexer.tokens.logical
+namespace Interpres.Lexer.Tokens.Numeracy
 {
     class SubtractOperator : AbstractOperator
     {
+        public SubtractOperator(int position) : base(position) { }
+
         public override string ToString()
         {
             return "-";

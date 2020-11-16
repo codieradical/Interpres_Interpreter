@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Interpreter.lexer.tokens.bitwise
+namespace Interpres.Lexer.Tokens.Bitwise
 {
     class XOrOperator : AbstractOperator
     {
+        public XOrOperator(int position) : base(position) { }
+
         public override string ToString()
         {
             return "^";

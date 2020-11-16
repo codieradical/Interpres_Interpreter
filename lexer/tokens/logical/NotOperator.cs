@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Interpreter.lexer.tokens.logical
+namespace Interpres.Lexer.Tokens.Logical
 {
     class NotOperator : AbstractOperator
     {
+        public NotOperator(int position) : base(position) { }
+
         public override string ToString()
         {
             return "!";
