@@ -4,11 +4,11 @@ using Interpres.Tokens;
 
 namespace Interpreter.Syntax
 {
-    public class Matrix : AbstractSyntax
+    public class MatrixSyntax : AbstractSyntax
     {
         private List<AbstractSyntax> elements;
 
-        public Matrix(List<AbstractSyntax> elements)
+        public MatrixSyntax(List<AbstractSyntax> elements)
         {
             this.elements = elements;
         }

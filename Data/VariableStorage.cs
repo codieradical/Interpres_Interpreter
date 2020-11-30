@@ -18,5 +18,10 @@ namespace Interpreter.Data
             return variables[name];
         }
 
+        public Dictionary<string, object>.KeyCollection GetVariableNames()
+        {
+            return variables.Keys;
+        }
+
     }
 }

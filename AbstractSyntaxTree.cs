@@ -11,7 +11,7 @@ using Interpreter.Tokens;
 
 namespace Interpreter
 {
-    class AbstractSyntaxTree : AbstractSyntax
+    public class AbstractSyntaxTree : AbstractSyntax
     {
         private AbstractSyntax root;
         
@@ -20,11 +20,16 @@ namespace Interpreter
             BuildTree(tokens);
         }
 
-        private Matrix ParseMatrix(List<object> tokens)
-        {
-            List<AbstractSyntax> contents = new List<AbstractSyntax>();
-            return new Matrix(contents);
-        }
+        //private Matrix ParseMatricies(List<object> tokens)
+        //{
+        //    int squareBraceCount = 0;
+        //    List<object> matrixTokens = new List<object>();
+        //    for (int i = 0; i < syntaxList.Count; i++)
+        //    {
+        //        List<AbstractSyntax> contents = new List<AbstractSyntax>();
+        //        return new Matrix(contents);
+        //    }
+        //}
         
         private void BuildTree(List<object> tokens)
         {
@@ -75,6 +80,35 @@ namespace Interpreter
             {
                 root = syntaxList.First() as ValueSyntax;
                 return;
+            }
+
+            tokens = syntaxList;
+            syntaxList = new List<object>();
+            braceCount = 0;
+            List<AbstractSyntax> matrixTokens = new List<AbstractSyntax>();
+            for (int i = 0; i < tokens.Count; i++)
+            {
+                if (tokens[i] is LeftSquareParenthesisToken)
+                    braceCount += 1;
+                else if (tokens[i] is RightSquareParenthesisToken)
+                {
+                    braceCount -= 1;
+                    if (braceCount == 0)
+                        syntaxList.Add(new MatrixSyntax(matrixTokens));
+
+
+                    if (braceCount < 0)
+                        throw new SyntaxException("Unexpected closing parenthesis.");
+                }
+                else if (braceCount > 0)
+                {
+                    if (tokens[i] is AbstractSyntax)
+                        matrixTokens.Add(tokens[i] as AbstractSyntax);
+                    else if (!(tokens[i] is CommaToken))
+                        throw new SyntaxException("Invalid value in array: " + tokens[i]);
+                }
+                else
+                    syntaxList.Add(tokens[i]);
             }
 
             // 3. Parse Operations.

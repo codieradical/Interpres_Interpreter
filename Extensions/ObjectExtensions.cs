@@ -41,5 +41,10 @@ namespace Interpreter.Extensions
             return Value is string
                    || Value is String;
         }
+
+        public static bool IsArray(this object Value)
+        {
+            return Value.GetType().IsArray;
+        }
     }
 }

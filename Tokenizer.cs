@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Interpreter
 {
-    class Tokenizer
+    public class Tokenizer
     {
         private List<ITokenizer> tokenizers = new List<ITokenizer>();
 
