@@ -1,5 +1,5 @@
-﻿using Interpres.Lexer;
-using Interpres.Lexer.Tokens;
+﻿using Interpres;
+using Interpres.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,11 +32,11 @@ namespace Interpres.Debugging
                     continue;
                 }
 
-                AbstractOperator abstractOperator = OperatorService.GetOperator(i, lexeme.Substring(i));
-                if (abstractOperator != null)
+                AbstractOperator @operator = OperatorService.GetOperator(i, lexeme.Substring(i));
+                if (@operator != null)
                 {
-                    tokens.AddLast(abstractOperator);
-                    i += abstractOperator.ToString().Length;
+                    tokens.AddLast(@operator);
+                    i += @operator.GetInputString().Length;
                     continue;
                 }
 
@@ -56,8 +56,8 @@ namespace Interpres.Debugging
                 if (tokenEnd < 1)
                     tokenEnd = lexeme.Substring(i).Length;
 
-                ValueToken valueToken = ValueToken.FromString(lexeme.Substring(i, tokenEnd));
-                i += valueToken.ToString().Length - 1;
+                ValueToken valueToken = null;
+                i += valueToken.GetInputString().Length - 1;
 
                 tokens.AddLast(valueToken);
             }
@@ -66,22 +66,22 @@ namespace Interpres.Debugging
 
             for (int i = 0; i < tokens.Count; i++)
             {
-                AbstractToken token = tokens.ElementAt(i);
+                AbstractToken abstractToken = tokens.ElementAt(i);
 
-                if (token is ValueToken)
+                if (abstractToken is ValueToken)
                 {
-                    valueStack.Push(token as ValueToken);
+                    valueStack.Push(abstractToken as ValueToken);
                 }
 
-                if (token is AbstractOperator)
+                if (abstractToken is AbstractOperator)
                 {
                     for (; i + 1 < tokens.Count; i++)
                     {
-                        AbstractToken nextToken = tokens.ElementAt(i + 1);
+                        AbstractToken nextAbstractToken = tokens.ElementAt(i + 1);
 
-                        if (nextToken is ValueToken)
+                        if (nextAbstractToken is ValueToken)
                         {
-                            valueStack.Push(nextToken as ValueToken);
+                            valueStack.Push(nextAbstractToken as ValueToken);
                         }
                         else
                         {
@@ -92,7 +92,7 @@ namespace Interpres.Debugging
                     ValueToken[] values = valueStack.Reverse().ToArray();
 
                     valueStack.Clear();
-                    valueStack.Push((token as AbstractOperator).Operate(values));
+                    valueStack.Push((abstractToken as AbstractOperator).Operate(values));
                 }
             }
 

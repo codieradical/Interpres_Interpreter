@@ -1,5 +1,5 @@
-﻿using Interpres.Lexer.Tokens;
-using Interpres.Lexer.Tokens.Expressions;
+﻿using Interpres.Tokens;
+using Interpres.Tokens.Expressions;
 using Interpres_dev;
 using System;
 

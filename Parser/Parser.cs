@@ -1,9 +1,11 @@
-﻿using Interpres.Lexer.Tokens;
-using Interpres.Lexer.Tokens.Expressions;
-using Interpres.Lexer.Tokens.Logical;
-using Interpres.Lexer.Tokens.Numeracy;
+﻿using Interpres.Expressions;
+using Interpres.Tokens;
+using Interpres.Tokens.Expressions;
+using Interpres.Tokens.Logical;
+using Interpres.Tokens.Numeracy;
 using Interpres_dev;
 using System.Collections.Generic;
+using Expression = Interpres.Expressions.Expression;
 
 
 class Parser
@@ -17,19 +19,19 @@ class Parser
     {
         var tokenList = new List<AbstractToken>();
 
-        var lexer = new Lexer(text);
-        AbstractToken token;
+        var lexer = new LexerOld(text);
+        AbstractToken abstractToken;
 
         do
         {
-            token = lexer.NextToken();
+            abstractToken = lexer.NextToken();
 
-            if (!(token is WhitespaceToken) &&
-                !(token is InvalidToken))
+            if (!(abstractToken is WhitespaceAbstractToken) &&
+                !(abstractToken is InvalidAbstractToken))
             {
-                tokenList.Add(token);
+                tokenList.Add(abstractToken);
             }
-        } while (!(token is EOFToken));
+        } while (!(abstractToken is EofAbstractToken));
 
         _tokens = tokenList.ToArray();
 
@@ -79,7 +81,7 @@ class Parser
     {
         var expression = ParseTerm();
 
-        return new SyntaxTree(_diag, expression, typeof(EOFToken));
+        return new SyntaxTree(_diag, expression, typeof(EofAbstractToken));
     }
 
     private AbstractToken ParseTerm()

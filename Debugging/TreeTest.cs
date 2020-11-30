@@ -1,5 +1,5 @@
-﻿using Interpres.Lexer.Tokens;
-using Interpres.Lexer.Tokens.Expressions;
+﻿using Interpres.Tokens;
+using Interpres.Tokens.Expressions;
 using Interpres_dev;
 using System;
 using System.Dynamic;
@@ -106,7 +106,7 @@ namespace Interpres.Debugging
             if(node is AbstractToken t)
             {
                 Console.Write(" ");
-                Console.Write(t.ToString());
+                Console.Write(t.GetInputString());
             }
 
             Console.WriteLine();
@@ -117,11 +117,11 @@ namespace Interpres.Debugging
                 indent += "|   ";
 
 
-            if (node is AbstractExpression)
+            if (node is Expression)
             {
-                var lastChild = (node as AbstractExpression).expressionTokens.LastOrDefault();
+                var lastChild = (node as Expression).expressionTokens.LastOrDefault();
 
-                foreach (var child in (node as AbstractExpression).expressionTokens)
+                foreach (var child in (node as Expression).expressionTokens)
                 {
                     PrintConsole(child, indent, child == lastChild);
                 }

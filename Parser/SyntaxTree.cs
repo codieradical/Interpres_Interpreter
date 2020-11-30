@@ -1,5 +1,4 @@
-﻿using Interpres.Lexer.Tokens;
-using Interpres.Lexer.Tokens.Expressions;
+﻿using Interpres.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
