@@ -63,6 +63,7 @@
     <Compile Include="Syntax\MatrixSyntax.cs" />
     <Compile Include="Syntax\Operations\AssignmentOperation.cs" />
     <Compile Include="Syntax\Operations\IBinaryOperation.cs" />
+    <Compile Include="Syntax\Operations\Numeracy\PowerOperation.cs" />
     <Compile Include="Syntax\Operations\Numeracy\AddOperation.cs" />
     <Compile Include="Syntax\Operations\Numeracy\DivideOperation.cs" />
     <Compile Include="Syntax\Operations\Numeracy\MultiplyOperation.cs" />
