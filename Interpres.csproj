@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{3524FDE2-FCBB-4104-89EE-DD1D628F88A5}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>Interpreter</RootNamespace>
     <AssemblyName>Interpreter</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -40,6 +40,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,10 +56,14 @@
     <Compile Include="Evaluator.cs" />
     <Compile Include="Extensions\ArrayExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="IO\LocalFileService.cs" />
+    <Compile Include="IO\IFileService.cs" />
+    <Compile Include="IO\Workspace.cs" />
     <Compile Include="Lexer.cs" />
     <Compile Include="LexerOld.cs" />
     <Compile Include="Syntax\BinaryOperationSyntax.cs" />
     <Compile Include="Syntax\AbstractSyntax.cs" />
+    <Compile Include="Syntax\CommandSyntax.cs" />
     <Compile Include="Syntax\IdentifierSyntax.cs" />
     <Compile Include="Syntax\MatrixSyntax.cs" />
     <Compile Include="Syntax\Operations\AssignmentOperation.cs" />
@@ -81,6 +86,8 @@
     <Compile Include="Tokenizers\TokenizationException.cs" />
     <Compile Include="Tokens\AssignmentOperator.cs" />
     <Compile Include="Tokenizer.cs" />
+    <Compile Include="Tokens\Commands\SaveCommand.cs" />
+    <Compile Include="Tokens\Commands\OpenCommand.cs" />
     <Compile Include="Tokens\Commands\ExitCommand.cs" />
     <Compile Include="Tokens\Commands\Command.cs" />
     <Compile Include="Tokens\IdentifierToken.cs" />
@@ -124,5 +131,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

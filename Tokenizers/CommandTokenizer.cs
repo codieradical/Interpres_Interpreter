@@ -1,5 +1,6 @@
 ﻿using Interpres.Tokens;
 using Interpreter.Extensions;
+using Interpreter.Tokens.commands;
 using Interpreter.Tokens.Commands;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,20 @@ namespace Interpreter.Tokenizers
 {
     class CommandTokenizer : ITokenizer
     {
+        protected List<Command> commands = new List<Command>();
+
+        public CommandTokenizer()
+        {
+            RegisterCommands();
+        }
+
+        public void RegisterCommands()
+        {
+            commands.Add(new ExitCommand());
+            commands.Add(new OpenCommand());
+            commands.Add(new SaveCommand());
+        }
+
         public AbstractToken ParseToken(string input)
         {
             if (string.IsNullOrWhiteSpace(input))
@@ -25,10 +40,12 @@ namespace Interpreter.Tokenizers
             if (string.IsNullOrWhiteSpace(commandName))
                 throw new TokenizationException("Empty token.", 0);
 
-            switch (commandName)
+            foreach (Command command in commands)
             {
-                case "exit":
-                    return new ExitCommand();
+                if (commandName.ToLower().StartsWith(command.GetInputString()))
+                {
+                    return command;
+                }
             }
 
             throw new TokenizationException("Not a command.", 0);

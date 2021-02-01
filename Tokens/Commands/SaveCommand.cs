@@ -1,4 +1,6 @@
-﻿using Interpreter.Tokens.commands;
+﻿using Interpreter.Data;
+using Interpreter.IO;
+using Interpreter.Tokens.commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,17 +9,18 @@ using System.Threading.Tasks;
 
 namespace Interpreter.Tokens.Commands
 {
-    class ExitCommand : Command
+    class SaveCommand : Command
     {
         public override object Execute(object[] args)
         {
-            Environment.Exit(0);
-            return "Exiting...";
+            new LocalFileService().SaveWorkspace(VariableStorage.singleton.AsWorkspace());
+
+            return "Saved file.";
         }
 
         public override string GetInputString()
         {
-            return "exit";
+            return "save";
         }
     }
 }

@@ -34,6 +34,7 @@ namespace Interpreter.Syntax
             operations.Add(typeof(AssignmentOperator), new AssignmentOperation());
             operations.Add(typeof(MultiplyOperator), new MultiplyOperation());
             operations.Add(typeof(DivideOperator), new DivideOperatrion());
+            operations.Add(typeof(PowerOperator), new PowerOperation());
         }
     }
 }

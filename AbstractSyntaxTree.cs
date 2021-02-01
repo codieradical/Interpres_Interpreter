@@ -8,6 +8,7 @@ using Interpres.Tokens.Numeracy;
 using Interpreter.Extensions;
 using Interpreter.Syntax;
 using Interpreter.Tokens;
+using Interpreter.Tokens.commands;
 
 namespace Interpreter
 {
@@ -52,7 +53,14 @@ namespace Interpreter
                     braceCount -= 1;
                     if (braceCount == 0)
                     {
-                        if (i < tokens.Count - 1 || syntaxList.Count > 0)
+                        if (tokens[i - 2] is Command)
+                        {
+                            syntaxList.Remove(syntaxList.Last());
+                            syntaxList.Add(new CommandSyntax((Command)tokens[i - 2], subtreeTokens));
+                            if (i - 2 == 0 || root == null)
+                                root = syntaxList.First() as CommandSyntax;
+                        }
+                        else if (i < tokens.Count - 1 || syntaxList.Count > 0)
                             syntaxList.Add(new AbstractSyntaxTree(subtreeTokens));
                         else
                             syntaxList = subtreeTokens;
@@ -124,13 +132,15 @@ namespace Interpreter
             // Assignments come first too.
             List<Type> numeracyOperatorTypes = new List<Type>()
             {
-                typeof(AssignmentOperator),
-                
                 typeof(DivideOperator),
                 typeof(MultiplyOperator),
                 typeof(AddOperator),
                 typeof(SubtractOperator),
+
+                typeof(AssignmentOperator),
             };
+
+            numeracyOperatorTypes.Reverse();
 
             List<object> rightSyntax;
             
@@ -153,7 +163,10 @@ namespace Interpreter
                             right = rightSyntax.First() as AbstractSyntax;
                         }
                         else
+                        {
+                            rightSyntax.Reverse();
                             right = new AbstractSyntaxTree(rightSyntax);
+                        }
 
                         if (syntaxList.Count == 3 || i == 1)
                         {
@@ -163,10 +176,7 @@ namespace Interpreter
                             left = syntaxList[i - 1] as AbstractSyntax;
                         }
                         else
-                        {
-                            left = new AbstractSyntaxTree(syntaxList.GetRange(0, i - 1));
-                        }
-
+                            left = new AbstractSyntaxTree(syntaxList.GetRange(0, i));
 
                         root = new BinaryOperationSyntax<AbstractSyntax, AbstractSyntax>((AbstractOperator)syntaxList[i], left, right);
                         return;
@@ -174,7 +184,7 @@ namespace Interpreter
                     rightSyntax.Add(syntaxList[i]);
                 }
             }
-            
+
             // Remaining operations can be stacked without brackets.
             // They are parsed from the right down.
             rightSyntax = new List<object>();
@@ -194,7 +204,10 @@ namespace Interpreter
                         right = rightSyntax.First() as AbstractSyntax;
                     }
                     else
+                    {
+                        rightSyntax.Reverse();
                         right = new AbstractSyntaxTree(rightSyntax);
+                    }
 
                     if (syntaxList.Count == 3 || i == 1)
                     {
@@ -204,7 +217,7 @@ namespace Interpreter
                         left = syntaxList[i - 1] as AbstractSyntax;
                     }
                     else
-                        left = new AbstractSyntaxTree(syntaxList.GetRange(0, i - 1));
+                        left = new AbstractSyntaxTree(syntaxList.GetRange(0, i));
 
 
                     root = new BinaryOperationSyntax<AbstractSyntax, AbstractSyntax>((AbstractOperator)syntaxList[i], left, right);
@@ -216,7 +229,7 @@ namespace Interpreter
 
         public override object GetValue()
         {
-            return root.GetValue();
+            return root?.GetValue();
         }
     }
 }

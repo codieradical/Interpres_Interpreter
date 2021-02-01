@@ -9,6 +9,7 @@ namespace Interpres
 {
     class Program
     {  
+        [STAThread]
         static void Main (string[] args)
         {
             ASTTest.Debug(args);

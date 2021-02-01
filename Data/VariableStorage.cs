@@ -1,3 +1,4 @@
+using Interpreter.IO;
 using System.Collections.Generic;
 
 namespace Interpreter.Data
@@ -21,6 +22,16 @@ namespace Interpreter.Data
         public Dictionary<string, object>.KeyCollection GetVariableNames()
         {
             return variables.Keys;
+        }
+
+        public Workspace AsWorkspace()
+        {
+            return new Workspace(new string[0], variables);
+        }
+
+        public void LoadWorkspace(Workspace workspace)
+        {
+            variables = workspace.variables;
         }
 
     }

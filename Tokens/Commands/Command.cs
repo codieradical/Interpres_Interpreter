@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Interpreter.Tokens.commands
 {
-    abstract class Command : AbstractToken
+    public abstract class Command : AbstractToken
     {
-        public abstract void Execute();
+        public abstract object Execute(object[] args);
     }
 }
