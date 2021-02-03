@@ -16,11 +16,11 @@ namespace Interpres.Tokens.Expressions
             }
         }
 
-        public AbstractOperator Operation
+        public AbstractBinaryOperator Operation
         {
             get
             {
-                return expressionTokens[1] as AbstractOperator;
+                return expressionTokens[1] as AbstractBinaryOperator;
             }
         }
 
@@ -32,7 +32,7 @@ namespace Interpres.Tokens.Expressions
             }
         }
 
-        public BinaryExpression(AbstractToken left, AbstractOperator operation, AbstractToken right)
+        public BinaryExpression(AbstractToken left, AbstractBinaryOperator operation, AbstractToken right)
             : base(new AbstractToken[] { left, operation, right }) { }
     }
 }

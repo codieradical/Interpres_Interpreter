@@ -1,6 +1,6 @@
 using Interpreter.Extensions;
 
-namespace Interpreter.Syntax.Operations
+namespace Interpreter.Syntax.Operations.Numeracy
 {
     public class MultiplyOperation : IBinaryOperation
     {

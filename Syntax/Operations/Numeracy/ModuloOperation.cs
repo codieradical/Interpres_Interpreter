@@ -2,7 +2,7 @@ using Interpreter.Extensions;
 
 namespace Interpreter.Syntax.Operations.Numeracy
 {
-    public class DivideOperatrion : IBinaryOperation
+    public class ModuloOperation : IBinaryOperation
     {
         public object Operate(AbstractSyntax left, AbstractSyntax right)
         {
@@ -10,10 +10,10 @@ namespace Interpreter.Syntax.Operations.Numeracy
             {
                 dynamic dynamicLeft = left.GetValue();
                 dynamic dynamicRight = right.GetValue();
-                return dynamicLeft / dynamicRight;
+                return dynamicLeft % dynamicRight;
             }
 
-            throw new SyntaxException($"Can't divide a {left.GetType()} by a {right.GetType()}");
+            throw new SyntaxException($"Can't modulo a {left.GetType()} by a {right.GetType()}");
         }
     }
 }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Interpreter.Tokenizers
 {
-    class CommandTokenizer : ITokenizer
+    public class CommandTokenizer : ITokenizer
     {
         protected List<Command> commands = new List<Command>();
 
@@ -19,11 +19,14 @@ namespace Interpreter.Tokenizers
             RegisterCommands();
         }
 
-        public void RegisterCommands()
+        protected virtual void RegisterCommands()
         {
             commands.Add(new ExitCommand());
-            commands.Add(new OpenCommand());
-            commands.Add(new SaveCommand());
+        }
+
+        public void RegisterCommand(Command command)
+        {
+            commands.Add(command);
         }
 
         public AbstractToken ParseToken(string input)

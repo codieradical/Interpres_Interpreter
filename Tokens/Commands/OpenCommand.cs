@@ -1,5 +1,4 @@
-﻿using Interpreter.Data;
-using Interpreter.IO;
+﻿using Interpreter.IO;
 using Interpreter.Tokens.commands;
 using System;
 using System.Collections.Generic;
@@ -11,14 +10,13 @@ namespace Interpreter.Tokens.Commands
 {
     class OpenCommand : Command
     {
-        public override object Execute(object[] args)
+        public override object Execute(object[] args, Workspace workspace)
         {
             Workspace file = new LocalFileService().OpenWorkspace();
             foreach (string line in file.script)
             {
                 Console.WriteLine(line);
             }
-            VariableStorage.singleton.LoadWorkspace(file);
             return "Opened file.";
         }
 

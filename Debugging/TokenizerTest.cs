@@ -12,7 +12,7 @@ namespace Interpreter.Debugging
     {
         public static void Debug(string[] args)
         {
-            Tokenizer tokenizerService = new Tokenizer();
+            TokenizerService tokenizerService = new TokenizerService();
 
             while (true)
             {

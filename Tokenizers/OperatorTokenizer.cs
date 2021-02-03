@@ -12,7 +12,7 @@ namespace Interpreter.Tokenizers
 {
     class OperatorTokenizer : ITokenizer
     {
-        private Dictionary<string, AbstractOperator> operators = new Dictionary<string, AbstractOperator>(); 
+        private List<AbstractOperator> operators = new List<AbstractOperator>(); 
         public OperatorTokenizer()
         {
             RegisterOperators();
@@ -20,36 +20,36 @@ namespace Interpreter.Tokenizers
 
         private void RegisterOperators()
         {
-            operators.Add("&", new Interpres.Tokens.Bitwise.AndOperator());
-            operators.Add("~", new ComplementOperator());
-            operators.Add("<<", new LeftShiftOperator());
-            operators.Add("|", new Interpres.Tokens.Bitwise.OrOperator());
-            operators.Add(">>", new RightShiftOperator());
-            //operators.Add("^", new XOrOperator());
+            operators.Add(new Interpres.Tokens.Logical.AndOperator());
+            operators.Add(new NotOperator());
+            operators.Add(new Interpres.Tokens.Bitwise.OrOperator());
 
-            operators.Add("&&", new Interpres.Tokens.Logical.AndOperator());
-            operators.Add("!", new NotOperator());
-            operators.Add("||", new Interpres.Tokens.Bitwise.OrOperator());
+            operators.Add(new Interpres.Tokens.Bitwise.AndOperator());
+            operators.Add(new ComplementOperator());
+            operators.Add(new LeftShiftOperator());
+            operators.Add(new Interpres.Tokens.Bitwise.OrOperator());
+            operators.Add(new RightShiftOperator());
+            operators.Add(new XOrOperator());
 
-            operators.Add("+", new AddOperator());
-            operators.Add("/", new DivideOperator());
-            operators.Add("*", new MultiplyOperator());
-            operators.Add("-", new SubtractOperator());
+            operators.Add(new AddOperator());
+            operators.Add(new DivideOperator());
+            operators.Add(new MultiplyOperator());
+            operators.Add(new SubtractOperator());
 
-            operators.Add("%", new ModuloOperator());
+            operators.Add(new ModuloOperator());
 
-            operators.Add("^", new PowerOperator());
+            operators.Add(new PowerOperator());
 
-            operators.Add("=", new AssignmentOperator());
+            operators.Add(new AssignmentOperator());
         }
 
         public AbstractToken ParseToken(string input)
         {
             input = input.TrimStart();
-            foreach (string key in operators.Keys)
+            foreach (AbstractOperator _operator in operators)
             {
-                if (input.StartsWith(key))
-                    return operators[key];
+                if (input.StartsWith(_operator.GetInputString()))
+                    return _operator;
             }
             throw new TokenizationException("Not a operator.", 0);
         }

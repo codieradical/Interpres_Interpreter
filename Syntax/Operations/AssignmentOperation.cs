@@ -1,5 +1,4 @@
 using System;
-using Interpreter.Data;
 
 namespace Interpreter.Syntax.Operations
 {
@@ -9,8 +8,8 @@ namespace Interpreter.Syntax.Operations
         {
             if (!(left is IdentifierSyntax))
                 throw new SyntaxException("Bad identifier " + left);
-            
-            VariableStorage.singleton.WriteVariable((left as IdentifierSyntax).Identifier, right.GetValue());
+
+            (left as IdentifierSyntax).SetValue(right.GetValue());
 
             return right.GetValue();
         }

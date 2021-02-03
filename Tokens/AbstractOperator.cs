@@ -8,6 +8,5 @@ namespace Interpres.Tokens
 {
     public abstract class AbstractOperator : AbstractToken
     {
-        public abstract ValueToken Operate(params ValueToken[] values);
     }
 }

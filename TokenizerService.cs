@@ -8,13 +8,18 @@ using System.Threading.Tasks;
 
 namespace Interpreter
 {
-    public class Tokenizer
+    public class TokenizerService
     {
         private List<ITokenizer> tokenizers = new List<ITokenizer>();
 
-        public Tokenizer()
+        public TokenizerService(CommandTokenizer commandTokenizer)
         {
-            RegisterTokenizers();
+            RegisterTokenizers(commandTokenizer);
+        }
+
+        public TokenizerService()
+        {
+            RegisterTokenizers(new CommandTokenizer());
         }
 
         public List<AbstractToken> GetTokens(string input)
@@ -61,11 +66,11 @@ namespace Interpreter
             return tokens;
         }
 
-        private void RegisterTokenizers()
+        private void RegisterTokenizers(CommandTokenizer commandTokenizer)
         {
             // Order can be important here.
             tokenizers.Add(new NumberTokenizer());
-            tokenizers.Add(new CommandTokenizer());
+            tokenizers.Add(commandTokenizer);
             tokenizers.Add(new OperatorTokenizer());
             tokenizers.Add(new TextTokenizer());
             tokenizers.Add(new BooleanTokenizer());

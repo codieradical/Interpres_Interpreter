@@ -1,5 +1,6 @@
 ﻿using Interpres.Tokens;
 using Interpreter;
+using Interpreter.Tokenizers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Interpreter.Debugging
     {
         public static void Debug(string[] args)
         {
-            Tokenizer tokenizerService = new Tokenizer();
+            TokenizerService tokenizerService = new TokenizerService(new ConsoleCommandTokenizer());
 
             while (true)
             {
@@ -21,14 +22,14 @@ namespace Interpreter.Debugging
                 try
                 {
                     var tokens = tokenizerService.GetTokens(input);
-                    // foreach (AbstractToken token in tokens)
-                    // {
-                    //     Console.WriteLine("token: " + token.GetInputString() + " " + token.GetType().ToString());
-                    //     if (token is ValueToken)
-                    //     {
-                    //         Console.WriteLine("Value: " + ((ValueToken)token).Value);
-                    //     }
-                    // }
+                    //foreach (AbstractToken token in tokens)
+                    //{
+                    //    Console.WriteLine("token: " + token.GetInputString() + " " + token.GetType().ToString());
+                    //    if (token is ValueToken)
+                    //    {
+                    //        Console.WriteLine("Value: " + ((ValueToken)token).Value);
+                    //    }
+                    //}
 
                     Console.WriteLine("ans: " + new AbstractSyntaxTree(tokens.Select(token => (object) token).ToList()).GetValue());
                 } catch (Exception ex)

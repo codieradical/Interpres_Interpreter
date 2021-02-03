@@ -1,7 +1,7 @@
 using Interpreter.Extensions;
 using System;
 
-namespace Interpreter.Syntax.Operations
+namespace Interpreter.Syntax.Operations.Numeracy
 {
     public class PowerOperation : IBinaryOperation
     {
@@ -11,6 +11,7 @@ namespace Interpreter.Syntax.Operations
             {
                 dynamic dynamicLeft = left.GetValue();
                 dynamic dynamicRight = right.GetValue();
+                Console.WriteLine("pow " + left + " " + right);
                 return Math.Pow(dynamicLeft, dynamicRight);
             }
             

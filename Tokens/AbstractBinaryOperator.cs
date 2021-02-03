@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace Interpres.Tokens
 {
-    class AssignmentOperator : AbstractBinaryOperator
+    public abstract class AbstractBinaryOperator : AbstractOperator
     {
-        public override string GetInputString()
-        {
-            return "=";
-        }
     }
 }

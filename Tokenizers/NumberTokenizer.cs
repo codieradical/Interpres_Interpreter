@@ -21,7 +21,7 @@ namespace Interpreter.Tokenizers
             // Loop through and check where the number ends.
             for (int i = 0; i < token.Length; i++)
             {
-                if (char.IsDigit(token[i]))
+                if (char.IsDigit(token[i]) || token[i] == '.')
                     continue;
                 // hexidecimal prefix.
                 if (i == 1 && token[i] == 'x' && token[0] == '0')
@@ -55,6 +55,13 @@ namespace Interpreter.Tokenizers
             else if (token.ToLower().EndsWith("d"))
             {
                 bool valid = double.TryParse(token.Substring(0, token.Length - 1), out double value);
+                if (!valid)
+                    throw new TokenizationException("Invalid double value.", 0);
+                return new ValueToken(value, token);
+            }
+            else if (token.Contains('.'))
+            {
+                bool valid = double.TryParse(token.Substring(0, token.Length), out double value);
                 if (!valid)
                     throw new TokenizationException("Invalid double value.", 0);
                 return new ValueToken(value, token);

@@ -14,7 +14,7 @@ namespace Interpreter.Tokenizers
             if (string.IsNullOrWhiteSpace(input))
                 throw new ArgumentException("No token input!");
 
-            string token = input.Split(null)[0];
+            string token = input.Split(null)[0].ToLower();
             if (string.IsNullOrWhiteSpace(token))
                 throw new TokenizationException("Empty token.", 0);
 

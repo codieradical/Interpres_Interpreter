@@ -12,62 +12,11 @@ namespace Interpres.Tokens
 
         public object Value { get; private set; }
 
-
-        [Obsolete("Migrate to new tokenizer.")]
-        public ValueToken(object value)
-        {
-            Console.WriteLine("Warning: Old token!" + Environment.StackTrace.ToString());
-            this.inputString = "";
-            Value = value;
-        }
-
         public ValueToken(object value, string inputString)
         {
             this.inputString = inputString;
             Value = value;
         }
-
-        //public static ValueToken FromString(int position, string valueString)
-        //{
-        //    ValueToken token = FromString(valueString);
-        //    return token;
-        //}
-
-        //public static ValueToken FromString(string valueString)
-        //{
-        //    if (valueString.StartsWith("\"") && valueString.EndsWith("\""))
-        //        return new ValueToken(valueString.Substring(1, valueString.Length - 2));
-
-        //    if (valueString.StartsWith("\'") && valueString.EndsWith("\'") && valueString.Length == 3)
-        //        return new ValueToken(valueString.ElementAt(1));
-
-        //    if (valueString.ToLower().EndsWith("f"))
-        //    {
-        //        if (float.TryParse(valueString, out float floatValue))
-        //            return new ValueToken(floatValue);
-        //        else
-        //            throw new Exception("Invalid float value " + valueString);
-        //    }
-
-        //    if (valueString.Contains("."))
-        //    {
-        //        if (decimal.TryParse(valueString, out decimal decimalValue))
-        //            return new ValueToken(decimalValue);
-        //        else
-        //            throw new Exception("Invalid decimal value " + valueString);
-        //    }
-
-        //    if (bool.TryParse(valueString, out bool boolValue))
-        //        return new ValueToken(boolValue);
-
-        //    if (long.TryParse(valueString, out long longValue))
-        //        return new ValueToken(longValue);
-
-        //    //if (!valueString.Contains(" "))
-        //    //    return new ValueToken(valueString);
-
-        //    throw new Exception("Invalid value " + valueString);
-        //}
 
         public override string GetInputString()
         {

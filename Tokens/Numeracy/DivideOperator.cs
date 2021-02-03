@@ -6,39 +6,11 @@ using System.Threading.Tasks;
 
 namespace Interpres.Tokens.Numeracy
 {
-    class DivideOperator : AbstractOperator
+    class DivideOperator : AbstractBinaryOperator
     {
         public override string GetInputString()
         {
             return "/";
-        }
-
-        public override ValueToken Operate(params ValueToken[] values)
-        {
-            if (values.Length < 1)
-                throw new InvalidOperationException("Not enough values provided.");
-
-            object? result = null;
-
-            foreach (ValueToken value in values)
-            {
-                if (!value.IsNumeric())
-                    throw new ArgumentException($"Token ${value} can't be multiplied.");
-
-                if (result == null)
-                {
-                    result = value.Value;
-                }
-                else
-                {
-                    dynamic l = result;
-                    dynamic r = value.Value;
-
-                    result = l / r;
-                }
-            }
-
-            return new ValueToken(result);
         }
     }
 }

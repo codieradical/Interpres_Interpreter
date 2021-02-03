@@ -1,5 +1,5 @@
 using Interpres.Tokens;
-using Interpreter.Data;
+using Interpreter.IO;
 using Interpreter.Tokens;
 
 namespace Interpreter.Syntax
@@ -7,14 +7,21 @@ namespace Interpreter.Syntax
     public class IdentifierSyntax : ValueSyntax
     {
         public string Identifier { private set; get; }
-        public IdentifierSyntax(IdentifierToken value)
+        public readonly Workspace workspace;
+        public IdentifierSyntax(IdentifierToken value, Workspace workspace)
         {
+            this.workspace = workspace;
             Identifier = value.GetInputString();
         }
         
         public override object GetValue()
         {
-            return VariableStorage.singleton.GetVariable(Identifier);
+            return workspace.variables[Identifier];
+        }
+
+        public void SetValue(object value)
+        {
+            workspace.variables[Identifier] = value;
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Interpreter.IO
 {
     [Serializable]
-    public class Workspace
+    public abstract class Workspace
     {
         public Workspace(string[] script)
         {
@@ -22,5 +22,9 @@ namespace Interpreter.IO
 
         public Dictionary<string, object> variables = new Dictionary<string, object>();
         public string[] script;
+        [NonSerialized]
+        public LinkedList<string> commandLog = new LinkedList<string>();
+
+        public abstract void SaveWorkspace();
     }
 }

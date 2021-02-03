@@ -19,18 +19,24 @@ namespace Interpreter.IO
             try
             {
                 object deserialized = binaryFormatter.Deserialize(file);
-                if (deserialized is Workspace)
-                    return deserialized as Workspace;
+                if (deserialized is LocalFileWorkspace)
+                {
+                    file.Close();
+                    LocalFileWorkspace workspace = deserialized as LocalFileWorkspace;
+                    return new LocalFileWorkspace(openFileDialog.FileName, workspace.script, workspace.variables);
+                }
                 else
                 {
                     StreamReader reader = new StreamReader(file);
-                    Workspace workspace = new Workspace(reader.ReadToEnd().Split(new string[] { "\r\n", "\r", "\n" }, System.StringSplitOptions.RemoveEmptyEntries));
+                    Workspace workspace = new LocalFileWorkspace(openFileDialog.FileName, reader.ReadToEnd().Split(new string[] { "\r\n", "\r", "\n" }, System.StringSplitOptions.RemoveEmptyEntries));
+                    file.Close();
                     return workspace;
                 }
             } catch
             {
                 StreamReader reader = new StreamReader(file);
-                Workspace workspace = new Workspace(reader.ReadToEnd().Split(new string[] { "\r\n", "\r", "\n" }, System.StringSplitOptions.RemoveEmptyEntries));
+                Workspace workspace = new LocalFileWorkspace(openFileDialog.FileName, reader.ReadToEnd().Split(new string[] { "\r\n", "\r", "\n" }, System.StringSplitOptions.RemoveEmptyEntries));
+                file.Close();
                 return workspace;
             }
         }
@@ -48,6 +54,8 @@ namespace Interpreter.IO
                 File.WriteAllLines(saveFileDialog.FileName, workspace.script);
             else
                 binaryFormatter.Serialize(file, workspace);
+
+            file.Close();
         }
     }
 }

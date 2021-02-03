@@ -1,6 +1,6 @@
 using Interpreter.Extensions;
 
-namespace Interpreter.Syntax.Operations
+namespace Interpreter.Syntax.Operations.Numeracy
 {
     public class AddOperation : IBinaryOperation
     {
@@ -12,12 +12,12 @@ namespace Interpreter.Syntax.Operations
                 dynamic dynamicRight = right.GetValue();
                 return dynamicLeft + dynamicRight;
             }
-            if ((left.IsString() || left.IsCharacter()) && (right.IsString() || right.IsCharacter()))
+            if ((left.GetValue().IsString() || left.GetValue().IsCharacter()) && (right.GetValue().IsString() || right.GetValue().IsCharacter()))
             {
-                return left.ToString() + right.ToString();
+                return left.GetValue().ToString() + right.GetValue().ToString();
             }
             
-            throw new SyntaxException($"Can't add a {left.GetType()} to a {right.GetType()}");
+            throw new SyntaxException($"Can't add a {left.GetValue().GetType()} to a {right.GetValue().GetType()}");
         }
     }
 }

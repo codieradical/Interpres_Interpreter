@@ -50,24 +50,33 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractSyntaxTree.cs" />
-    <Compile Include="Data\VariableStorage.cs" />
     <Compile Include="Debugging\ASTTest.cs" />
     <Compile Include="Debugging\TokenizerTest.cs" />
-    <Compile Include="Evaluator.cs" />
     <Compile Include="Extensions\ArrayExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="IO\LocalFileService.cs" />
     <Compile Include="IO\IFileService.cs" />
+    <Compile Include="IO\LocalFileWorkspace.cs" />
     <Compile Include="IO\Workspace.cs" />
-    <Compile Include="Lexer.cs" />
-    <Compile Include="LexerOld.cs" />
+    <Compile Include="Syntax\Operations\Bitwise\ComplementOperation.cs" />
+    <Compile Include="Syntax\Operations\IUnaryOperation.cs" />
+    <Compile Include="Syntax\Operations\Logical\NotOperation.cs" />
+    <Compile Include="Syntax\UnaryOperationSyntax.cs" />
     <Compile Include="Syntax\BinaryOperationSyntax.cs" />
     <Compile Include="Syntax\AbstractSyntax.cs" />
     <Compile Include="Syntax\CommandSyntax.cs" />
     <Compile Include="Syntax\IdentifierSyntax.cs" />
     <Compile Include="Syntax\MatrixSyntax.cs" />
     <Compile Include="Syntax\Operations\AssignmentOperation.cs" />
+    <Compile Include="Syntax\Operations\Bitwise\XOrOperation.cs" />
+    <Compile Include="Syntax\Operations\Bitwise\OrOperation.cs" />
+    <Compile Include="Syntax\Operations\Bitwise\RightShiftOperation.cs" />
+    <Compile Include="Syntax\Operations\Bitwise\LeftShiftOperation.cs" />
+    <Compile Include="Syntax\Operations\Bitwise\AndOperation.cs" />
     <Compile Include="Syntax\Operations\IBinaryOperation.cs" />
+    <Compile Include="Syntax\Operations\Logical\OrOperation.cs" />
+    <Compile Include="Syntax\Operations\Logical\AndOperation.cs" />
+    <Compile Include="Syntax\Operations\Numeracy\ModuloOperation.cs" />
     <Compile Include="Syntax\Operations\Numeracy\PowerOperation.cs" />
     <Compile Include="Syntax\Operations\Numeracy\AddOperation.cs" />
     <Compile Include="Syntax\Operations\Numeracy\DivideOperation.cs" />
@@ -75,6 +84,7 @@
     <Compile Include="Syntax\Operations\Numeracy\SubtractOperation.cs" />
     <Compile Include="Syntax\SyntaxException.cs" />
     <Compile Include="Syntax\ValueSyntax.cs" />
+    <Compile Include="Tokenizers\ConsoleCommandTokenizer.cs" />
     <Compile Include="Tokenizers\CommandTokenizer.cs" />
     <Compile Include="Tokenizers\IdentifierTokenizer.cs" />
     <Compile Include="Tokenizers\ITokenizer.cs" />
@@ -84,8 +94,10 @@
     <Compile Include="Tokenizers\NumberTokenizer.cs" />
     <Compile Include="Tokenizers\TextTokenizer.cs" />
     <Compile Include="Tokenizers\TokenizationException.cs" />
+    <Compile Include="Tokens\AbstractOperator.cs" />
+    <Compile Include="Tokens\AbstractUnaryOperator.cs" />
     <Compile Include="Tokens\AssignmentOperator.cs" />
-    <Compile Include="Tokenizer.cs" />
+    <Compile Include="TokenizerService.cs" />
     <Compile Include="Tokens\Commands\SaveCommand.cs" />
     <Compile Include="Tokens\Commands\OpenCommand.cs" />
     <Compile Include="Tokens\Commands\ExitCommand.cs" />
@@ -94,12 +106,13 @@
     <Compile Include="Tokens\Syntax\CommaToken.cs" />
     <Compile Include="Tokens\Syntax\LeftSquareParenthesisToken.cs" />
     <Compile Include="Tokens\Syntax\RightSquareParenthesisToken.cs" />
+    <Compile Include="Tokens\ValueToken.cs" />
     <Compile Include="Tokens\WhitespaceAbstractToken.cs" />
     <Compile Include="Tokens\Expressions\Expression.cs" />
     <Compile Include="Tokens\Expressions\BinaryExpression.cs" />
     <Compile Include="Tokens\Expressions\AbstractExpression.cs" />
     <Compile Include="Tokens\AbstractToken.cs" />
-    <Compile Include="Tokens\AbstractOperator.cs" />
+    <Compile Include="Tokens\AbstractBinaryOperator.cs" />
     <Compile Include="Tokens\Bitwise\ComplementOperator.cs" />
     <Compile Include="Tokens\Bitwise\XOrOperator.cs" />
     <Compile Include="Tokens\Bitwise\RightShiftOperator.cs" />
@@ -109,7 +122,6 @@
     <Compile Include="Tokens\EofAbstractToken.cs" />
     <Compile Include="Tokens\InvalidAbstractToken.cs" />
     <Compile Include="Tokens\Numeracy\PowerOperator.cs" />
-    <Compile Include="Tokens\OperatorService.cs" />
     <Compile Include="Tokens\Syntax\RightParenthesisToken.cs" />
     <Compile Include="Tokens\Logical\NotOperator.cs" />
     <Compile Include="Tokens\Logical\OrOperator.cs" />
@@ -119,14 +131,9 @@
     <Compile Include="Tokens\Numeracy\DivideOperator.cs" />
     <Compile Include="Tokens\Numeracy\SubtractOperator.cs" />
     <Compile Include="Tokens\Syntax\LeftParenthesisToken.cs" />
-    <Compile Include="Tokens\ValueToken.cs" />
     <Compile Include="Tokens\Numeracy\AddOperator.cs" />
-    <Compile Include="Debugging\OperatorTest.cs" />
-    <Compile Include="Parser\Parser.cs" />
-    <Compile Include="Debugging\TreeTest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Parser\SyntaxTree.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
