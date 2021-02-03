@@ -22,6 +22,15 @@ namespace Interpreter.Tokenizers
         protected virtual void RegisterCommands()
         {
             commands.Add(new ExitCommand());
+
+            commands.Add(new CreateFileCommand());
+            commands.Add(new DeleteFileCommand());
+            commands.Add(new WriteFileCommand());
+
+            commands.Add(new PiCommand());
+            commands.Add(new SinCommand());
+            commands.Add(new CosCommand());
+            commands.Add(new TanCommand());
         }
 
         public void RegisterCommand(Command command)

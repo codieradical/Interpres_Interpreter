@@ -58,13 +58,14 @@ namespace Interpreter
                         if (command != null)
                         {
                             //syntaxList.Remove(syntaxList.Last());
+                            syntaxList.Remove(command);
                             syntaxList.Add(new CommandSyntax(command, subtreeTokens, workspace));
                             command = null;
                             //if (i - 2 == 0 || root == null)
                             //    root = syntaxList.First() as CommandSyntax;
                         }
                         else if (i < tokens.Count - 1 || syntaxList.Count > 0)
-                            syntaxList.Add(new AbstractSyntaxTree(subtreeTokens));
+                            syntaxList.Add(new AbstractSyntaxTree(subtreeTokens, workspace));
                         else
                             syntaxList = subtreeTokens;
                     }
@@ -123,7 +124,7 @@ namespace Interpreter
                         subtreeMatrixTokens.AddRange(subtreeTokens);
                         subtreeMatrixTokens.Add(new RightSquareParenthesisToken());
 
-                        matrixTokens.Add(new AbstractSyntaxTree(subtreeMatrixTokens));
+                        matrixTokens.Add(new AbstractSyntaxTree(subtreeMatrixTokens, workspace));
                         subtreeTokens.Clear();
                     }
 
@@ -183,7 +184,7 @@ namespace Interpreter
                         else
                         {
                             rightSyntax.Reverse();
-                            right = new AbstractSyntaxTree(rightSyntax);
+                            right = new AbstractSyntaxTree(rightSyntax, workspace);
                         }
 
                         if (syntaxList.Count == 3 || i == 1)
@@ -194,7 +195,7 @@ namespace Interpreter
                             left = syntaxList[i - 1] as AbstractSyntax;
                         }
                         else
-                            left = new AbstractSyntaxTree(syntaxList.GetRange(0, i));
+                            left = new AbstractSyntaxTree(syntaxList.GetRange(0, i), workspace);
 
                         root = new BinaryOperationSyntax<AbstractSyntax, AbstractSyntax>((AbstractBinaryOperator)syntaxList[i], left, right);
                         return;
@@ -224,7 +225,7 @@ namespace Interpreter
                     else
                     {
                         rightSyntax.Reverse();
-                        right = new AbstractSyntaxTree(rightSyntax);
+                        right = new AbstractSyntaxTree(rightSyntax, workspace);
                     }
 
                     if (syntaxList.Count == 3 || i == 1)
@@ -235,7 +236,7 @@ namespace Interpreter
                         left = syntaxList[i - 1] as AbstractSyntax;
                     }
                     else
-                        left = new AbstractSyntaxTree(syntaxList.GetRange(0, i));
+                        left = new AbstractSyntaxTree(syntaxList.GetRange(0, i), workspace);
 
 
                     root = new BinaryOperationSyntax<AbstractSyntax, AbstractSyntax>((AbstractBinaryOperator)syntaxList[i], left, right);
@@ -257,7 +258,7 @@ namespace Interpreter
                     else
                     {
                         rightSyntax.Reverse();
-                        right = new AbstractSyntaxTree(rightSyntax);
+                        right = new AbstractSyntaxTree(rightSyntax, workspace);
                     }
 
                     root = new UnaryOperationSyntax<AbstractSyntax>((AbstractUnaryOperator)syntaxList[i], right);
@@ -269,6 +270,17 @@ namespace Interpreter
 
             if (root == null && syntaxList.Count > 0)
                 root = syntaxList.First() as AbstractSyntax;
+
+
+            Console.WriteLine("tree!");
+            foreach (object token in syntaxList)
+            {
+                Console.WriteLine("token: " + token.GetType().ToString());
+                if (token is ValueToken)
+                {
+                    Console.WriteLine("Value: " + ((ValueToken)token).Value);
+                }
+            }
         }
 
         public override object GetValue()

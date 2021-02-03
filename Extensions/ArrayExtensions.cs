@@ -21,5 +21,17 @@ namespace Interpreter.Extensions
             Array.Copy(data, index, result, 0, data.Length - index);
             return result;
         }
+
+        public static string ToString(this object[] array)
+        {
+            string[] valueStrings = new string[array.Length];
+            for (int i = 0; i < array.Length; i++)
+            {
+                valueStrings[i] = array[i].ToString();
+                if (array[i].GetType().IsArray)
+                    valueStrings[i] = ((object[])array[i]).ToString();
+            }
+            return "[" + string.Join(", ", valueStrings) + "]";
+        }
     }
 }

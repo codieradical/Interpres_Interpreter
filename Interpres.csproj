@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{3524FDE2-FCBB-4104-89EE-DD1D628F88A5}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>Interpreter</RootNamespace>
     <AssemblyName>Interpreter</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -38,6 +38,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
@@ -54,6 +57,10 @@
     <Compile Include="Debugging\TokenizerTest.cs" />
     <Compile Include="Extensions\ArrayExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="IO\Commands\DeleteFileCommand.cs" />
+    <Compile Include="IO\Commands\CreateFileCommand.cs" />
+    <Compile Include="IO\IDataImporter.cs" />
+    <Compile Include="IO\JSONDataImporter.cs" />
     <Compile Include="IO\LocalFileService.cs" />
     <Compile Include="IO\IFileService.cs" />
     <Compile Include="IO\LocalFileWorkspace.cs" />
@@ -84,7 +91,6 @@
     <Compile Include="Syntax\Operations\Numeracy\SubtractOperation.cs" />
     <Compile Include="Syntax\SyntaxException.cs" />
     <Compile Include="Syntax\ValueSyntax.cs" />
-    <Compile Include="Tokenizers\ConsoleCommandTokenizer.cs" />
     <Compile Include="Tokenizers\CommandTokenizer.cs" />
     <Compile Include="Tokenizers\IdentifierTokenizer.cs" />
     <Compile Include="Tokenizers\ITokenizer.cs" />
@@ -98,6 +104,12 @@
     <Compile Include="Tokens\AbstractUnaryOperator.cs" />
     <Compile Include="Tokens\AssignmentOperator.cs" />
     <Compile Include="TokenizerService.cs" />
+    <Compile Include="IO\Commands\WriteFileCommand.cs" />
+    <Compile Include="Tokens\Commands\TanCommand.cs" />
+    <Compile Include="Tokens\Commands\CosCommand.cs" />
+    <Compile Include="Tokens\Commands\SinCommand.cs" />
+    <Compile Include="Tokens\Commands\PiCommand.cs" />
+    <Compile Include="Tokens\Commands\NewLineCommand.cs" />
     <Compile Include="Tokens\Commands\SaveCommand.cs" />
     <Compile Include="Tokens\Commands\OpenCommand.cs" />
     <Compile Include="Tokens\Commands\ExitCommand.cs" />
@@ -137,6 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

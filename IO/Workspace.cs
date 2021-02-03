@@ -24,6 +24,10 @@ namespace Interpreter.IO
         public string[] script;
         [NonSerialized]
         public LinkedList<string> commandLog = new LinkedList<string>();
+        [NonSerialized]
+        public string command = "";
+        [NonSerialized]
+        public bool loading = false;
 
         public abstract void SaveWorkspace();
     }

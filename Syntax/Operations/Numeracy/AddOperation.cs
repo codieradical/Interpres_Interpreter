@@ -12,7 +12,7 @@ namespace Interpreter.Syntax.Operations.Numeracy
                 dynamic dynamicRight = right.GetValue();
                 return dynamicLeft + dynamicRight;
             }
-            if ((left.GetValue().IsString() || left.GetValue().IsCharacter()) && (right.GetValue().IsString() || right.GetValue().IsCharacter()))
+            if (left.GetValue().IsString() || left.GetValue().IsCharacter())
             {
                 return left.GetValue().ToString() + right.GetValue().ToString();
             }

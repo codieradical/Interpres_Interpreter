@@ -13,32 +13,37 @@ namespace Interpreter.IO
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Interpres workspace (*.ipw)|*.ipw|Interpres script (*.ips)|*.ips|All files (*.*)|*.*";
             openFileDialog.FilterIndex = 1;
-            openFileDialog.ShowDialog();
-            Stream file = openFileDialog.OpenFile();
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            try
+            if (openFileDialog.ShowDialog() != DialogResult.Cancel)
             {
-                object deserialized = binaryFormatter.Deserialize(file);
-                if (deserialized is LocalFileWorkspace)
+                Stream file = openFileDialog.OpenFile();
+                BinaryFormatter binaryFormatter = new BinaryFormatter();
+                try
                 {
-                    file.Close();
-                    LocalFileWorkspace workspace = deserialized as LocalFileWorkspace;
-                    return new LocalFileWorkspace(openFileDialog.FileName, workspace.script, workspace.variables);
+                    object deserialized = binaryFormatter.Deserialize(file);
+                    if (deserialized is LocalFileWorkspace)
+                    {
+                        file.Close();
+                        LocalFileWorkspace workspace = deserialized as LocalFileWorkspace;
+                        return new LocalFileWorkspace(openFileDialog.FileName, workspace.script, workspace.variables);
+                    }
+                    else
+                    {
+                        StreamReader reader = new StreamReader(file);
+                        Workspace workspace = new LocalFileWorkspace(openFileDialog.FileName, reader.ReadToEnd().Split(new string[] { "\r\n", "\r", "\n" }, System.StringSplitOptions.RemoveEmptyEntries));
+                        file.Close();
+                        return workspace;
+                    }
                 }
-                else
+                catch
                 {
                     StreamReader reader = new StreamReader(file);
                     Workspace workspace = new LocalFileWorkspace(openFileDialog.FileName, reader.ReadToEnd().Split(new string[] { "\r\n", "\r", "\n" }, System.StringSplitOptions.RemoveEmptyEntries));
                     file.Close();
                     return workspace;
                 }
-            } catch
-            {
-                StreamReader reader = new StreamReader(file);
-                Workspace workspace = new LocalFileWorkspace(openFileDialog.FileName, reader.ReadToEnd().Split(new string[] { "\r\n", "\r", "\n" }, System.StringSplitOptions.RemoveEmptyEntries));
-                file.Close();
-                return workspace;
             }
+
+            throw new IOException("File open cancelled.");
         }
 
         public void SaveWorkspace(Workspace workspace)
@@ -46,16 +51,18 @@ namespace Interpreter.IO
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Interpres workspace (*.ipw)|*.ipw|Interpres script (*.ips)|*.ips";
             saveFileDialog.FilterIndex = 1;
-            saveFileDialog.ShowDialog();
-            Stream file = saveFileDialog.OpenFile();
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            if (saveFileDialog.ShowDialog() != DialogResult.Cancel)
+            {
+                Stream file = saveFileDialog.OpenFile();
+                BinaryFormatter binaryFormatter = new BinaryFormatter();
 
-            if (saveFileDialog.FileName.EndsWith(".ips"))
-                File.WriteAllLines(saveFileDialog.FileName, workspace.script);
-            else
-                binaryFormatter.Serialize(file, workspace);
+                if (saveFileDialog.FileName.EndsWith(".ips"))
+                    File.WriteAllLines(saveFileDialog.FileName, workspace.script);
+                else
+                    binaryFormatter.Serialize(file, workspace);
 
-            file.Close();
+                file.Close();
+            }
         }
     }
 }

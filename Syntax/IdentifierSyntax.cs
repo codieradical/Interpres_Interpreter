@@ -1,6 +1,7 @@
 using Interpres.Tokens;
 using Interpreter.IO;
 using Interpreter.Tokens;
+using System.Collections.Generic;
 
 namespace Interpreter.Syntax
 {
@@ -16,7 +17,13 @@ namespace Interpreter.Syntax
         
         public override object GetValue()
         {
-            return workspace.variables[Identifier];
+            try
+            {
+                return workspace.variables[Identifier];
+            } catch (KeyNotFoundException ex)
+            {
+                throw new KeyNotFoundException("Variable \"" + Identifier + "\" not found.");
+            }
         }
 
         public void SetValue(object value)
