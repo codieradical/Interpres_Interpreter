@@ -31,6 +31,8 @@ namespace Interpreter.Tokenizers
             commands.Add(new SinCommand());
             commands.Add(new CosCommand());
             commands.Add(new TanCommand());
+
+            commands.Add(new MatrixConcatenateCommand());
         }
 
         public void RegisterCommand(Command command)

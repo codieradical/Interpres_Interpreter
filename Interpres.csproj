@@ -108,6 +108,7 @@
     <Compile Include="Tokens\AssignmentOperator.cs" />
     <Compile Include="TokenizerService.cs" />
     <Compile Include="IO\Commands\WriteFileCommand.cs" />
+    <Compile Include="Tokens\Commands\MatrixConcatenateCommand.cs" />
     <Compile Include="Tokens\Commands\TanCommand.cs" />
     <Compile Include="Tokens\Commands\CosCommand.cs" />
     <Compile Include="Tokens\Commands\SinCommand.cs" />
