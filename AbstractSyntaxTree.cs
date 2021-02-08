@@ -113,9 +113,32 @@ namespace Interpreter
                     braceCount -= 1;
                     if (braceCount == 0)
                     {
-                        syntaxList.Add(new MatrixSyntax(matrixTokens));
-                        if (syntaxList.Count == 1)
-                            root = syntaxList.First() as MatrixSyntax;
+                        if ((syntaxList.Last() is IdentifierSyntax && (syntaxList.Last() as IdentifierSyntax).GetValue().IsArray()) || (syntaxList.Last() is ValueSyntax && (syntaxList.Last() as ValueSyntax).GetValue().IsArray()))
+                        {
+                            List<object> subtree = new List<object>();
+                            foreach (AbstractSyntax token in matrixTokens)
+                            {
+                                subtree.Add(token);
+                            }
+                            AbstractSyntax identifier = syntaxList.Last() as AbstractSyntax;
+                            object[] arr = (object[])identifier.GetValue();
+                            object index = new AbstractSyntaxTree(subtree).GetValue();
+                            if (index.IsNumeric())
+                            {
+                                syntaxList.Remove(syntaxList.Last());
+                                syntaxList.Add(new ValueSyntax(arr[(int)index]));
+                                if (syntaxList.Count == 1)
+                                    root = syntaxList.First() as ValueSyntax;
+                            }
+                            else
+                                throw new SyntaxException("Invalid matrix index " + index.ToString());
+                        }
+                        else
+                        {
+                            syntaxList.Add(new MatrixSyntax(matrixTokens));
+                            if (syntaxList.Count == 1)
+                                root = syntaxList.First() as MatrixSyntax;
+                        }
                     }
                     else if (braceCount == 1)
                     {

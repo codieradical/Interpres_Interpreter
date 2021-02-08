@@ -44,7 +44,7 @@ namespace Interpreter.Extensions
 
         public static bool IsArray(this object Value)
         {
-            return Value.GetType().IsArray;
+            return Value != null && Value.GetType().IsArray;
         }
     }
 }

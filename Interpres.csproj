@@ -58,6 +58,7 @@
     <Compile Include="IO\Commands\DeleteFileCommand.cs" />
     <Compile Include="IO\Commands\CreateFileCommand.cs" />
     <Compile Include="IO\IDataImporter.cs" />
+    <Compile Include="IO\CSVDataImporter.cs" />
     <Compile Include="IO\JSONDataImporter.cs" />
     <Compile Include="IO\LocalFileService.cs" />
     <Compile Include="IO\IFileService.cs" />
