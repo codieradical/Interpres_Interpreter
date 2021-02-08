@@ -33,6 +33,7 @@ namespace Interpreter.Tokenizers
             commands.Add(new TanCommand());
 
             commands.Add(new MatrixConcatenateCommand());
+            commands.Add(new ZerosCommand());
         }
 
         public void RegisterCommand(Command command)
