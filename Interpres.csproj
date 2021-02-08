@@ -53,8 +53,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractSyntaxTree.cs" />
-    <Compile Include="Debugging\ASTTest.cs" />
-    <Compile Include="Debugging\TokenizerTest.cs" />
     <Compile Include="Extensions\ArrayExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="IO\Commands\DeleteFileCommand.cs" />
@@ -68,6 +66,11 @@
     <Compile Include="Syntax\Operations\Bitwise\ComplementOperation.cs" />
     <Compile Include="Syntax\Operations\IUnaryOperation.cs" />
     <Compile Include="Syntax\Operations\Logical\NotOperation.cs" />
+    <Compile Include="Syntax\Operations\Matrix\ElementWiseAndOperation.cs" />
+    <Compile Include="Syntax\Operations\Matrix\ElementWiseDivideOperation.cs" />
+    <Compile Include="Syntax\Operations\Matrix\ElementWiseMultiplyOperation.cs" />
+    <Compile Include="Syntax\Operations\Matrix\ElementWiseSubtractOperation.cs" />
+    <Compile Include="Syntax\Operations\Matrix\ElementWiseAddOperation.cs" />
     <Compile Include="Syntax\UnaryOperationSyntax.cs" />
     <Compile Include="Syntax\BinaryOperationSyntax.cs" />
     <Compile Include="Syntax\AbstractSyntax.cs" />
@@ -115,6 +118,12 @@
     <Compile Include="Tokens\Commands\ExitCommand.cs" />
     <Compile Include="Tokens\Commands\Command.cs" />
     <Compile Include="Tokens\IdentifierToken.cs" />
+    <Compile Include="Tokens\Matrix\ElementWiseAndOperator.cs" />
+    <Compile Include="Tokens\Matrix\ElementWiseDivideOperator.cs" />
+    <Compile Include="Tokens\Matrix\ElementWiseMultiplyOperator.cs" />
+    <Compile Include="Tokens\Matrix\ElementWiseSubtractOperator.cs" />
+    <Compile Include="Tokens\Matrix\ElementWiseAddOperator.cs" />
+    <Compile Include="Tokens\Matrix\ElementWiseOperator.cs" />
     <Compile Include="Tokens\Syntax\CommaToken.cs" />
     <Compile Include="Tokens\Syntax\LeftSquareParenthesisToken.cs" />
     <Compile Include="Tokens\Syntax\RightSquareParenthesisToken.cs" />
@@ -144,7 +153,6 @@
     <Compile Include="Tokens\Numeracy\SubtractOperator.cs" />
     <Compile Include="Tokens\Syntax\LeftParenthesisToken.cs" />
     <Compile Include="Tokens\Numeracy\AddOperator.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -8,6 +8,7 @@ using Interpreter.Syntax.Operations;
 using Interpreter.Syntax.Operations.Bitwise;
 using Interpreter.Syntax.Operations.Logical;
 using Interpreter.Syntax.Operations.Numeracy;
+using Interpreter.Tokens.Matrix;
 
 namespace Interpreter.Syntax
 {
@@ -51,6 +52,13 @@ namespace Interpreter.Syntax
             operations.Add(typeof(LeftShiftOperator), new LeftShiftOperation());
             operations.Add(typeof(RightShiftOperator), new RightShiftOperation());
             operations.Add(typeof(XOrOperator), new XOrOperation());
+
+            operations.Add(typeof(ElementWiseAddOperator), new ElementWiseAddOperation());
+            operations.Add(typeof(ElementWiseMultiplyOperator), new ElementWiseMultiplyOperation());
+            operations.Add(typeof(ElementWiseSubtractOperator), new ElementWiseSubtractOperation());
+            operations.Add(typeof(ElementWiseDivideOperator), new ElementWiseDivideOperation());
+            operations.Add(typeof(ElementWiseAndOperator), new ElementWiseAndOperation());
+
         }
     }
 }

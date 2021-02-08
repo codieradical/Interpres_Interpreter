@@ -2,6 +2,7 @@
 using Interpres.Tokens.Bitwise;
 using Interpres.Tokens.Logical;
 using Interpres.Tokens.Numeracy;
+using Interpreter.Tokens.Matrix;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,13 @@ namespace Interpreter.Tokenizers
             operators.Add(new PowerOperator());
 
             operators.Add(new AssignmentOperator());
+
+            operators.Add(new ElementWiseAddOperator());
+            operators.Add(new ElementWiseSubtractOperator());
+            operators.Add(new ElementWiseMultiplyOperator());
+            operators.Add(new ElementWiseDivideOperator());
+            operators.Add(new ElementWiseAndOperator());
+
         }
 
         public AbstractToken ParseToken(string input)

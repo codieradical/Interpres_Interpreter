@@ -285,7 +285,7 @@ namespace Interpreter
 
         public override object GetValue()
         {
-            return root.GetValue();
+            return root != null && root.GetValue() != null ? root.GetValue() : new ArgumentNullException("Operation provided no result!");
         }
     }
 }
