@@ -10,6 +10,18 @@ namespace Interpres_Console
 {
     class Program
     {
+        private static string ArrayToString(object[] array)
+        {
+            string[] valueStrings = new string[array.Length];
+            for (int i = 0; i < array.Length; i++)
+            {
+                valueStrings[i] = array[i].ToString();
+                if (array[i].GetType().IsArray)
+                    valueStrings[i] = ArrayToString((object[])array[i]);
+            }
+            return "[" + string.Join(", ", valueStrings) + "]";
+        }
+
         static void Main(string[] args)
         {
             TokenizerService tokenizerService = new TokenizerService();
@@ -30,9 +42,14 @@ namespace Interpres_Console
                     //        Console.WriteLine("Value: " + ((ValueToken)token).Value);
                     //    }
                     //}
+                    object answer = new AbstractSyntaxTree(tokens.Select(token => (object)token).ToList(), workspace).GetValue();
 
+                    string answerString = answer.ToString();
 
-                    Console.WriteLine("ans: " + new AbstractSyntaxTree(tokens.Select(token => (object)token).ToList(), workspace).GetValue());
+                    if (answer.GetType().IsArray)
+                        answerString = ArrayToString((object[])answer);
+
+                    Console.WriteLine("ans: " + answerString);
                 }
                 catch (Exception ex)
                 {
