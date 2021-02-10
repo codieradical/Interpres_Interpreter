@@ -293,17 +293,6 @@ namespace Interpreter
 
             if (root == null && syntaxList.Count > 0)
                 root = syntaxList.First() as AbstractSyntax;
-
-
-            Console.WriteLine("tree!");
-            foreach (object token in syntaxList)
-            {
-                Console.WriteLine("token: " + token.GetType().ToString());
-                if (token is ValueToken)
-                {
-                    Console.WriteLine("Value: " + ((ValueToken)token).Value);
-                }
-            }
         }
 
         public override object GetValue()
